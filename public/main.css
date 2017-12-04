@@ -1,0 +1,10 @@
+.header {
+	font-family: 'Abel', sans-serif;
+	color: grey;
+}
+
+.brand {
+	margin-left: 20px;
+	margin-top: 10px;
+	font-size: 24px;
+}
