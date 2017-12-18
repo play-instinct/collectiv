@@ -1,18 +1,28 @@
-const bodyParser = require('body-parser');
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+const {userRouter} = require('./routers/userRouter');
+const {DATABASE_URL, PORT} = require('./config/main');
 
 // Mongoose internally uses a promise-like object,
 // but its better to make Mongoose use built in es6 promises
-mongoose.Promise = global.Promise;
-
-// config.js is where we control constants for entire
-// app like PORT and DATABASE_URL
-const { PORT, DATABASE_URL } = require('./config');
-// const { User } = require('/models/user.model');
+mongoose.Promise = global.Promise;const {userRouter} = require('./routers/userRouter');
 
 const app = express();
 app.use(bodyParser.json());
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    next();
+});
+
+
 
 
 let server;
@@ -58,9 +68,4 @@ if (require.main === module) {
 module.exports = { app, runServer, closeServer };
 
 app.use(express.static(__dirname + '/public'));
-app.use('/static', express.static(__dirname + '/public'));
 
-
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + '/views/index.html');
-});
