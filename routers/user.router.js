@@ -13,3 +13,30 @@ require('../config/passport')(passport);
 
 mongoose.Promise = global.Promise;
 const {User} = require('../models/user');
+
+
+//POST request for new registration of a user to /api/user
+userRouter.post('/user', jsonParser, (req, res) => {
+  const requiredKeys = ["username", "email", "password", "user"];
+  requiredKeys.forEach( key => {
+    if(!(key in req.body)) {
+      const message = {message:`Please fill out all required fields.  Missing ${key} in request body, please try again.`};
+      return res.status(400).json(message);
+    }
+  });
+  User.create({
+    userName: req.body.username,
+    userEmail: req.body.email,
+    password: req.body.password,
+    joinDate: Date.now(),
+    avatar: req.body.avatar
+  })
+  .then(() => {
+    const message = {message:`Successfully created user ${req.body.username}`};
+    return res.status(200).json(message)
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({message: 'Sorry, something went wrong, please try again...'});
+  })
+});
