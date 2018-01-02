@@ -48,14 +48,9 @@
   <div class="form-field form-signup-submit">
           <input type="submit" value="Continue" class="continue-btn">
     </div>
-
 </form>
-      
     <div class="">
        <input type="text" name="websitelink" placeholder="Website Link" title="Format: Xx[space]Xx (e.g. Alex Cican)"/>
-      <!--  <div class="icon-form-label">
-      </div> -->
-
       <div class="form-field">
     <div class="form-label">Image:</div>
     <div class="field-container">
@@ -64,7 +59,7 @@
   </div>
 
       <div class="icon-form-field">
-        <div class="button-field-form"><input type="button" value="Upload Icon"></div>
+        <div class="button-field-form"><input type="button" value="Upload Icon" id="upload-icon-btn"></div>
         <div class="icon-placeholder-form"></div>
       </div>
       <hr>
@@ -76,7 +71,21 @@
 </div>
 
 
+
+<script src="./js/jquery.ui.widget.js"></script>
+<script src="./js/load-image.all.min.js"></script>
+<script src="./js/load-image-meta.js"></script>
+<script src="./js/canvas-to-blob.min.js"></script>
+<script src="./js/jquery.iframe-transport.min.js"></script>
+<script src="./js/jquery.fileupload.js"></script>
+<script src="./js/jquery.fileupload-process.js"></script>
+<script src="./js/jquery.fileupload-image.js"></script>
+
+<script>
+  $("#upload-icon-btn").click(function () {
+    $("#fileuploadicon").trigger('click');
+});
+</script>
+
 </body>
-  <script src="./styles/blur.js"></script>
-    <script src="./styles/style.js"></script>
 </html>

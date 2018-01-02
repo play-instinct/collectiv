@@ -35,7 +35,7 @@
 			<input id="fileupload" type="file" name="imgFile">
 		</div>
 	</div>
-	<div id="#files"></div>
+	<div id="files"></div>
 	<div class="form-field">
 		<div class="form-label">Tags:</div>
 		<div class="field-container">
@@ -60,12 +60,14 @@
 </form>
 </div>
 <script src="./js/jquery.ui.widget.js"></script>
-<script src="./js/jquery.load-image.all.min.js"></script>
-<script src="./js/jquery.load-image-meta.all.min.js"></script>
+<script src="./js/load-image.all.min.js"></script>
+<script src="./js/load-image-meta.js"></script>
+<script src="./js/canvas-to-blob.min.js"></script>
 <script src="./js/jquery.iframe-transport.min.js"></script>
 <script src="./js/jquery.fileupload.js"></script>
 <script src="./js/jquery.fileupload-process.js"></script>
 <script src="./js/jquery.fileupload-image.js"></script>
+
 <script>
 // $(function () {
 //     $('#fileupload').fileupload({
@@ -116,17 +118,19 @@ $(function() {
 	    enctype: 'multipart/form-data',
 	    processData: false,
 	    contentType: false,
-	    previewMaxWidth: 700,
+	    previewMaxWidth: 550,
+	    previewMaxHeight: 550,
+	    maxNumberOfFiles: 1,
 	   	loadImageMaxFileSize: 99999999999999999000,
 	    disableImageResize: /Android(?!.*Chrome)|Opera/
             .test(window.navigator.userAgent),
-        previewCrop: true,
+        previewCrop: false,
 
 	  }).on('fileuploadadd', function (e, data) {
-	        data.context = $('<div/>').appendTo('#files');
+	        data.context = $('<div/>').addClass('fadeInUp').appendTo('#files');
 	        $.each(data.files, function (index, file) {
 	            var node = $('<p/>')
-	                    .append($('<span/>').text(file.name));
+	                    .append($('<div/>').text(file.name));
 	            if (!index) {
 	                node
 	                    .append('<br>')
@@ -143,7 +147,7 @@ $(function() {
 	        	console.log(file.preview);
 	        	console.log(file);
 	            node
-	                .prepend('<br>')
+	                .prepend('<br><br>')
 	                .prepend(file.preview);
 	        }
 	        if (file.error) {
