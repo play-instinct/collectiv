@@ -39,19 +39,39 @@
         </div>
  -->
 
-
- <form action="" method="post" class="form">
+<div class="header-signup">Sign Up</div>
+ <form action="" method="post" class="form" id="sign-up-form">
   <input type="text" name="name" placeholder="Full name" title="Format: Xx[space]Xx (e.g. Alex Cican)" autofocus autocomplete="off" required pattern="^\w+\s\w+$" />
-  <span class="input"></span>
   <input type="email" name="email" placeholder="Email address" required />
   <span id="passwordMeter"></span>
   <input type="password" name="password" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"/>
   <div class="form-field form-signup-submit">
-          <input type="submit" value="Continue">
+          <input type="submit" value="Continue" class="continue-btn">
     </div>
 
 </form>
       
+    <div class="">
+       <input type="text" name="websitelink" placeholder="Website Link" title="Format: Xx[space]Xx (e.g. Alex Cican)"/>
+      <!--  <div class="icon-form-label">
+      </div> -->
+
+      <div class="form-field">
+    <div class="form-label">Image:</div>
+    <div class="field-container">
+      <input id="fileuploadicon" type="file" name="imgFile" value="Upload Icon">
+    </div>
+  </div>
+
+      <div class="icon-form-field">
+        <div class="button-field-form"><input type="button" value="Upload Icon"></div>
+        <div class="icon-placeholder-form"></div>
+      </div>
+      <hr>
+      <div class="form-field form-signup-submit">
+          <input type="submit" value="Continue" class="continue-btn">
+    </div>
+    </div>
     </div>
 </div>
 

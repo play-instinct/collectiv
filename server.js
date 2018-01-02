@@ -4,15 +4,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const {userRouter} = require('./routers/userRouter');
+const {userRouter} = require('./routers/user.router');
+const {workRouter} = require('./routers/work.router');
 const {DATABASE_URL, PORT} = require('./config/main');
+
+
 
 // Mongoose internally uses a promise-like object,
 // but its better to make Mongoose use built in es6 promises
-mongoose.Promise = global.Promise;const {userRouter} = require('./routers/userRouter');
+mongoose.Promise = global.Promise;
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 
 app.use((req, res, next) => {
@@ -22,6 +26,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/api/work', workRouter);
 
 
 
@@ -67,5 +72,4 @@ if (require.main === module) {
 
 module.exports = { app, runServer, closeServer };
 
-app.use(express.static(__dirname + '/public'));
 
