@@ -1,0 +1,11 @@
+.tooltipster-sidetip.tooltipster-default.tooltipster-default-customized .tooltipster-box {
+  background: white;
+  border: 1px solid #cccccc;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+.tooltipster-sidetip.tooltipster-default.tooltipster-default-customized .tooltipster-content {
+  color: grey;
+  padding: 8px;
+}

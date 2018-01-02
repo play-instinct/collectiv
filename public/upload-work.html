@@ -3,8 +3,11 @@
 	  <title>collectiv</title>
   <link href="https://fonts.googleapis.com/css?family=Abel|Chathura|News+Cycle|Open+Sans+Condensed:300" rel="stylesheet">
   <link rel="stylesheet" href="./styles/normalize.css">
-  <link rel="stylesheet" href="./styles/main.css">
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="./styles/tooltipster.bundle.min.css" />
+  <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/tooltipster-sideTip-light.min.css">
   <script
     src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -24,7 +27,7 @@
 <div class="upload-header"><h3>Upload your Work</h3></div>
 <div class="upload-container">
 <form id="upload-work-form" method="post" enctype="multipart/form-data" class="form">
-	<div class="form-field"><div class="form-label">Title:</div>
+	<div class="form-field"><div class="form-label tooltip" title="Title of Work">Title:</div>
 	<div class="field-container">
 		<input id="work-title" type="text" class="form-input" placeholder="Title" required>
 	</div>
@@ -37,13 +40,48 @@
 	</div>
 	<div id="files"></div>
 	<div class="form-field">
-		<div class="form-label">Tags:</div>
+		<div class="form-label tooltip" title="Optional">Tags:</div>
 		<div class="field-container">
 			<input type="text" class="form-input" placeholder="nature, organic, portrait"> 
 		</div>
 	</div>
 	<div class="form-field">
-		<div class="form-label artist-statement-label">Artist Statement:</div>
+		<div class="form-label tooltip">Medium:</div>
+		<div class="field-container">
+			<div class="select-box">
+    
+    <label for="select-box1" class="label select-box1"><span class="label-desc">Choose Medium</span> </label>
+    <select id="select-box1" class="select">
+      <option value="Choice 1">Drawing</option>
+      <option value="Choice 2">Painting</option>
+      <option value="Choice 3">Photography</option>
+      <option value="Choice 4">Printmaking</option>
+      <option value="Choice 5">Sculpture</option>
+      <option value="Choice 6">Interior Decor</option>
+      <option value="Choice 7">Fashion</option>
+      <option value="Choice 8">Mixed Media</option>
+      <option value="Choice 9">Other</option>
+    </select>
+    
+  </div>
+   
+		</div>
+</div>
+	<div class="form-field">
+		<div class="form-label tooltip" title="Make Uploaded Work visible to all users, or Curators only.">
+			Privacy:
+		</div>
+		<div class="field-container">
+			<div class="radio">
+				<input type="radio" name="privacy" value="public" id="public"> <label for="public" class="radio-label">Curators Only</label>
+			</div>
+			<div class="radio">
+				<input type="radio" name="privacy" value="public" id="private"> <label for="public" class="radio-label">Public</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-field">
+		<div class="form-label artist-statement-label tooltip" title="Give a brief or lengthy statement about this piece.">Artist Statement:</div>
 	<div class="field-container">
 		<textarea class="statement-input">....</textarea>
 	</div>
@@ -67,6 +105,7 @@
 <script src="./js/jquery.fileupload.js"></script>
 <script src="./js/jquery.fileupload-process.js"></script>
 <script src="./js/jquery.fileupload-image.js"></script>
+<script type="text/javascript" src="./js/tooltipster.bundle.min.js"></script>
 
 <script>
 // $(function () {
@@ -91,6 +130,45 @@
 //      	}
 //     });
 // });
+
+ $(function() {
+ 	$('.tooltip').tooltipster({
+    theme: 'tooltipster-light'
+	});
+	$.tooltipster.setDefaults({
+    side: 'left',
+	});
+   
+ });
+
+
+$("select").on("click" , function() {
+  
+  $(this).parent(".select-box").toggleClass("open");
+  
+});
+
+$(document).mouseup(function (e)
+{
+    var container = $(".select-box");
+
+    if (container.has(e.target).length === 0)
+    {
+        container.removeClass("open");
+    }
+});
+
+
+$("select").on("change" , function() {
+  
+  var selection = $(this).find("option:selected").text(),
+      labelFor = $(this).attr("id"),
+      label = $("[for='" + labelFor + "']");
+    
+  label.find(".label-desc").html(selection);
+    
+});
+
 
 $(function() {
 		uploadButton = $('<button/>')
