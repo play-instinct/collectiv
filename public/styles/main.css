@@ -121,10 +121,16 @@ input {
   transition: all .3s;
 }
 
+
+.full {
+  width: 100% !important;
+}
+
 .radio {
-  margin: 0.5rem 0 0.5rem 0;
+  margin: 0 0 0.5rem 0;
   height: 30px;
   padding-top: 5px;
+  margin-bottom: 20px;
 }
 .radio input[type="radio"] {
   position: absolute;
@@ -138,6 +144,7 @@ input {
   display: inline-block;
   width: 1.4em;
   height: 1.4em;
+  color: grey;
   position: relative;
   top: -0.2em;
   margin-right: 1em;
@@ -729,9 +736,7 @@ div {
 }
 .icon-placeholder-form{
   display:inline-block;
-  width: 100px;
-  height: 100px;
-  background-color: #cccccc;
+  
 }
 .header-signup {
   font-size: 48px;
@@ -740,6 +745,12 @@ div {
 }
 
 
+
+.continue-btn, #upload-icon-btn {
+  height: 45px;
+  padding: 0px;
+  background-color: grey;
+}
 .bar {
     height: 18px;
     background: #e7e7e7;
@@ -773,6 +784,11 @@ div {
 hr {
   color: grey;
   opacity: 0.6;
+}
+
+.lrg-btn {
+  height: 40px;
+  font-size: 24px;
 }
 
 .status {
@@ -1019,4 +1035,31 @@ textarea {
 
 .option-wrapper > input[type="checkbox"] {
   margin-right: 10px;
+}
+
+
+label.radio-label{
+  color: grey;
+  font-size: 1.5em;
+}
+
+
+
+#user-type-container {
+  margin-top: 20px;
+}
+#user-type-container > .radio {
+  border: 1px solid red;
+  width: 100%;
+}
+
+
+#user-type-container > .form-label {
+  font-size: 28px;
+  color: #9a9a9a !important;
+}
+
+
+.website-field {
+  margin-bottom: 0px;
 }

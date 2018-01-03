@@ -26,16 +26,16 @@
 </nav>
 <div class="upload-header"><h3>Upload your Work</h3></div>
 <div class="upload-container">
-<form id="upload-work-form" method="post" enctype="multipart/form-data" class="form">
+<form id="upload-work-form" method="post" enctype="multipart/form-data" class="form" data-url="/api/work">
 	<div class="form-field"><div class="form-label tooltip" title="Title of Work">Title:</div>
 	<div class="field-container">
 		<input id="work-title" type="text" class="form-input" placeholder="Title" required>
 	</div>
 	</div>
 	<div class="form-field">
-		<div class="form-label">Image:</div>
+		<div class="form-label">Images:</div>
 		<div class="field-container">
-			<input id="fileupload" type="file" name="imgFile">
+			<input id="fileupload" type="file" name="imgFile" data-url="/api/work">
 		</div>
 	</div>
 	<div id="files"></div>
@@ -73,10 +73,10 @@
 		</div>
 		<div class="field-container">
 			<div class="radio">
-				<input type="radio" name="privacy" value="public" id="public"> <label for="public" class="radio-label">Curators Only</label>
+				<input type="radio" name="privacy" value="private" id="private"> <label for="private" class="radio-label">Curators Only</label>
 			</div>
 			<div class="radio">
-				<input type="radio" name="privacy" value="public" id="private"> <label for="public" class="radio-label">Public</label>
+				<input type="radio" name="privacy" value="public" id="public"> <label for="public" class="radio-label">Public</label>
 			</div>
 		</div>
 	</div>
@@ -97,39 +97,17 @@
 	</div>
 </form>
 </div>
-<script src="./js/jquery.ui.widget.js"></script>
-<script src="./js/load-image.all.min.js"></script>
-<script src="./js/load-image-meta.js"></script>
-<script src="./js/canvas-to-blob.min.js"></script>
-<script src="./js/jquery.iframe-transport.min.js"></script>
-<script src="./js/jquery.fileupload.js"></script>
-<script src="./js/jquery.fileupload-process.js"></script>
-<script src="./js/jquery.fileupload-image.js"></script>
+<script type="text/javascript" src="./js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="./js/load-image.all.min.js"></script>
+<script type="text/javascript" src="./js/load-image-meta.js"></script>
+<script type="text/javascript" src="./js/canvas-to-blob.min.js"></script>
+<script type="text/javascript" src="./js/jquery.iframe-transport.min.js"></script>
+<script type="text/javascript" src="./js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="./js/jquery.fileupload-process.js"></script>
+<script type="text/javascript" src="./js/jquery.fileupload-image.js"></script>
 <script type="text/javascript" src="./js/tooltipster.bundle.min.js"></script>
 
 <script>
-// $(function () {
-//     $('#fileupload').fileupload({
-//     	method: 'post',
-//     	url: '/api/work',
-//     	enctype: 'multipart/form-data',
-//     	processData: false,
-//     	contentType: false,
-//      	add: function (e, data){
-//      		$.each(data.files, function (index, file) {
-//      		 var progress = parseInt(data.loaded / data.total * 100, 10);
-// 	        console.log(progress);
-// 	        $('#progress .bar').css('width', progress + '%');
-// 	        $('#progress .bar').css('background-color', 'green');
-//         	console.log('Added file: ' + file.name);});
-//     		data.url = '/api/work/';
-//     		var jqXHR = data.submit()
-// 	        .success(function (result, textStatus, jqXHR) {/* ... */})
-// 	        .error(function (jqXHR, textStatus, errorThrown) {/* ... */})
-// 	        .complete(function (result, textStatus, jqXHR) {/* ... */});
-//      	}
-//     });
-// });
 
  $(function() {
  	$('.tooltip').tooltipster({
@@ -145,7 +123,6 @@
 
 
 $("select").on("click" , function() {
-  
   $(this).parent(".select-box").toggleClass("open");
   
 });
@@ -153,7 +130,6 @@ $("select").on("click" , function() {
 $(document).mouseup(function (e)
 {
     var container = $(".select-box");
-
     if (container.has(e.target).length === 0)
     {
         container.removeClass("open");
@@ -173,23 +149,7 @@ $("select").on("change" , function() {
 
 
 $(function() {
-		uploadButton = $('<button/>')
-            .prop('disabled', true)
-            .text('Processing...')
-            .on('click', function () {
-                var $this = $(this),
-                    data = $this.data();
-                $this
-                    .off('click')
-                    .text('Abort')
-                    .on('click', function () {
-                        $this.remove();
-                        data.abort();
-                    });
-                data.submit().always(function () {
-                    $this.remove();
-                });
-            });
+
 
 	  $('#fileupload').fileupload({
 	    method: 'post',
@@ -240,6 +200,13 @@ $(function() {
 	                .text('Upload')
 	                .prop('disabled', !!data.files.error);
 	        }
+	         $('.upload-work-submit')
+		        .show()
+		        .click(function(innerEvent) {
+		          innerEvent.preventDefault();
+		          data.submit();
+		          $('.status').text('Uploading');
+		     });
 	    }).on('fileuploadprogressall', function (e, data) {
         var progress = parseInt(data.loaded / data.total * 100, 10);
         console.log(progress)
